@@ -1,0 +1,12 @@
+﻿// workers/main-bot/wrangler.jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "unabot-main-bot", 
+  "main": "src/index.js",
+  "compatibility_date": "2024-11-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  }
+  // 💡 ลบ: บรรทัด "account_id": "PLACEHOLDER_ACCOUNT_ID" ออกไปแล้ว
+}

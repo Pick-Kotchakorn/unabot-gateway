@@ -1,0 +1,63 @@
+﻿name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-gateway:
+    runs-on: ubuntu-latest
+    name: Deploy Gateway
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # FIX: Node 20 is correct
+          cache: 'npm'
+          cache-dependency-path: 'workers/gateway/package.json'
+
+      - name: Install & Deploy Gateway
+        working-directory: 'workers/gateway'
+        env:
+          # FIX: นำ Account ID กลับมาเป็น Environment Variable
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} 
+          # Secret สำหรับ Worker Runtime 
+          LINE_CHANNEL_SECRET: ${{ secrets.LINE_CHANNEL_SECRET }}
+          GAS_ENDPOINT: ${{ secrets.GAS_ENDPOINT }}
+        run: |
+          echo "📦 Installing dependencies..."
+          npm install
+          
+          echo "🚀 Deploying to Cloudflare..."
+          # FIX: ลบ --account-id ออก! Wrangler จะอ่านจาก env แทน
+          npx wrangler deploy --name papamica-gateway 
+
+  deploy-bot:
+    runs-on: ubuntu-latest
+    name: Deploy Main Bot
+    needs: deploy-gateway
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # FIX: Node 20 is correct
+
+      - name: Install & Deploy Main Bot
+        working-directory: 'workers/main-bot'
+        env:
+          # FIX: นำ Account ID กลับมาเป็น Environment Variable
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "📦 Installing dependencies..."
+          npm install
+          
+          echo "🚀 Deploying to Cloudflare..."
+          # FIX: ลบ --account-id ออก!
+          npx wrangler deploy --name papamica-main-bot
