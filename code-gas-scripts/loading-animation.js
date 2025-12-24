@@ -3,10 +3,10 @@
 // ========================================
 
 const CONFIG = {
-  LINE_CHANNEL_ACCESS_TOKEN: 'wQl9rs+m1p0t5eyZRT+2vXMNzeZqDQauwOqH64IbX8mDcRo43tj5t7daBslKezp949cEi3lABOUARb6dEiO8HA0+5ufaoDvnP71DKMtBAYUn2XKDGwfWnoOkahgpnl9cWLIRNrjsSQNJ5dAo5Y6vgwdB04t89/1O/w1cDnyilFU=',
+  LINE_CHANNEL_ACCESS_TOKEN: 'cLywMX7+8NNJ/sYuaaSCBuIvz1EgowIiiXzZG/A+IawSjgN+f7EsP56DfdoW300f9wWJa9rD6MmiVx4KLAO35bg/LN4eZSe52ShCdDLB3Fzr8wCoEcEFnAnlAReShcs+KXDCKTEO8Cjsq09uwn7z0gdB04t89/1O/w1cDnyilFU=',
   DIALOGFLOW_PROJECT_ID: 'yondaimebot-dailogflow',
   DIALOGFLOW_LANGUAGE_CODE: 'th',
-  SPREADSHEET_ID: '1KPqnRtL6MqaWMg0u_EG6Wmg2JCWkHmUyBBUvUcYq5Uo',
+  SPREADSHEET_ID: '1Kel4w3JJs4TLE7pGdRZopjjXcm-5xuk1gSjiQn0nYMY',
   SHEET_NAME: 'Conversations'
 };
 
